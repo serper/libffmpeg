@@ -9,12 +9,14 @@ Este proyecto compila la biblioteca FFmpeg desde el código fuente con parches y
     git clone <repository-url>
     cd <repository-directory>
     ```
-2. Descargar el código fuente y los parches:
+2. Asegúrese de tener `abuild` instalado y configurado en su sistema.
+
+3. Descargar el código fuente y los parches:
     ```sh
     wget https://github.com/FFmpeg/FFmpeg/archive/refs/heads/release/7.1.zip
     wget <patch-urls>
     ```
-3. Construir el proyecto:
+4. Construir el proyecto:
     ```sh
     abuild -r
     ```
