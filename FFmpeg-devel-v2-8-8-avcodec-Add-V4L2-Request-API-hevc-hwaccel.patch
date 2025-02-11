@@ -252,7 +252,7 @@ new file mode 100644
 index 0000000000..92c81509e6
 --- /dev/null
 +++ b/libavcodec/v4l2_request_hevc.c
-@@ -0,0 +1,790 @@
+@@ -0,0 +1,792 @@
 +/*
 + * This file is part of FFmpeg.
 + *
@@ -371,10 +371,11 @@ index 0000000000..92c81509e6
 +}
 +
 +static void fill_decode_params(struct v4l2_ctrl_hevc_decode_params *decode_params,
-+                               const HEVCContext *h)
++                             const HEVCContext *h)
 +{
 +    const HEVCFrame *pic = h->cur_frame;
 +    const SliceHeader *sh = &h->sh;
++    const HEVCLayerContext *lc = &h->layers[h->cur_layer];
 +    int i, entries = 0;
 +
 +    *decode_params = (struct v4l2_ctrl_hevc_decode_params) {
@@ -392,8 +393,9 @@ index 0000000000..92c81509e6
 +                                h->sh.short_term_rps->rps_idx_num_delta_pocs;
 +#endif
 +
-+    for (i = 0; i < FF_ARRAY_ELEMS(h->DPB); i++) {
-+        const HEVCFrame *frame = &h->DPB[i];
++    // Accedemos al DPB a través de la capa actual
++    for (i = 0; i < FF_ARRAY_ELEMS(lc->DPB); i++) {
++        const HEVCFrame *frame = &lc->DPB[i];
 +        if (frame != pic &&
 +            (frame->flags & (HEVC_FRAME_FLAG_LONG_REF | HEVC_FRAME_FLAG_SHORT_REF))) {
 +            struct v4l2_hevc_dpb_entry *entry = &decode_params->dpb[entries++];

@@ -1,0 +1,15 @@
+# Ignora artefactos de compilación
+*.o
+*.a
+*.so
+*.la
+*.lo
+*.log
+*.tmp
+
+# Ignora directorios de build
+build/
+dist/
+backup/
+src/
+output/
